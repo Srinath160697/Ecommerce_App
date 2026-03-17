@@ -14,10 +14,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // final TextEditingController nameController = TextEditingController();
   // final TextEditingController emailController = TextEditingController();
   // final TextEditingController passwordController = TextEditingController();
-  final AuthController authController = AuthController();
+  final AuthController _authController = AuthController();
   late String fullName;
   late String email;
   late String password;
+  bool isLoading = false;
+
+  signUpUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    await _authController
+        .signUpUsers(
+          context: context,
+          fullName: fullName,
+          email: email,
+          password: password,
+        )
+        .whenComplete(() {
+          setState(() {
+            isLoading = false;
+          });
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,20 +113,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        authController.signUpUsers(
-                          context: context,
-                          fullName: fullName,
-                          email: email,
-                          password: password,
-                        );
-                        print(fullName);
-                        print(email);
-                        print(password);
+                        signUpUser();
                       }
                     },
-                    child: const Text("signup"),
+                    child: isLoading
+                        ? const CircularProgressIndicator(color: Colors.blue)
+                        : const Text("Sign Up"),
                   ),
                 ),
                 Row(
@@ -115,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
-                        // Navigate to Register Screen
                         // Navigate to Register Screen
                         Navigator.push(
                           context,

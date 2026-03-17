@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_ecommerce_app/view/screens/authentication/login_screen.dart';
+import 'package:frontend_ecommerce_app/view/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen(),
+      home: MainScreen(),
     );
   }
 }

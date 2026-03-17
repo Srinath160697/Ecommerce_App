@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authrouter = require('./routers/auth')
+const bannerRouter = require('./routers/banner');
+const categoryRouter = require('./routers/category');
+const subcategoryRouter = require('./routers/subcategory');
+const productRouter = require('./routers/products');
 const dns = require('dns');
 dns.setServers([ '8.8.8.8', '8.8.4.4' ]);   
 
@@ -8,6 +12,11 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 app.use(authrouter);
+app.use(bannerRouter);
+app.use(categoryRouter);
+app.use(subcategoryRouter);
+app.use(productRouter);
+
 
 
 
