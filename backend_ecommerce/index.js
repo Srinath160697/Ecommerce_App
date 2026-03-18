@@ -5,6 +5,7 @@ const bannerRouter = require('./routers/banner');
 const categoryRouter = require('./routers/category');
 const subcategoryRouter = require('./routers/subcategory');
 const productRouter = require('./routers/products');
+const ratingReviewRouter = require('./routers/rating_review');
 const dns = require('dns');
 dns.setServers([ '8.8.8.8', '8.8.4.4' ]);   
 
@@ -16,6 +17,7 @@ app.use(bannerRouter);
 app.use(categoryRouter);
 app.use(subcategoryRouter);
 app.use(productRouter);
+app.use(ratingReviewRouter);
 
 
 
