@@ -6,12 +6,14 @@ const categoryRouter = require('./routers/category');
 const subcategoryRouter = require('./routers/subcategory');
 const productRouter = require('./routers/products');
 const ratingReviewRouter = require('./routers/rating_review');
+const cors = require('cors');
 const dns = require('dns');
 dns.setServers([ '8.8.8.8', '8.8.4.4' ]);   
 
 const app = express();
 const port = 3000;
 app.use(express.json());
+app.use(cors());
 app.use(authrouter);
 app.use(bannerRouter);
 app.use(categoryRouter);

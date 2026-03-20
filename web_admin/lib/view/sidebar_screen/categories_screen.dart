@@ -1,8 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:web_admin/controllers/category_controller.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  static const String id = '\categoriesscreen';
+  static const String id = 'categoriesscreen';
   const CategoriesScreen({super.key});
 
   @override
@@ -11,10 +12,11 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final CategoryController _categoryController = CategoryController();
   late String categoryName;
   dynamic _image;
   dynamic _bannerimage;
-  pickedImage() async {
+  Future<void> pickedImage() async {
     // Implement your image picking logic here
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -27,7 +29,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     }
   }
 
-  pickedBannerImage() async {
+  Future<void> pickedBannerImage() async {
     // Implement your image picking logic here
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -97,13 +99,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
               TextButton(onPressed: () {}, child: Text('Cancle')),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Process the form data
-                    print('Category Name: $categoryName');
+                    await _categoryController.uploadCategory(
+                      pickedImage: _image,
+                      pickedBanner: _bannerimage,
+                      namee: categoryName,
+                      context: context,
+                    );
                   }
                 },
-                child: Text('Submit'),
+                child: Text('Save'),
               ),
             ],
           ),
